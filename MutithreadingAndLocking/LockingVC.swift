@@ -45,7 +45,7 @@ class LockingVC: UIViewController {
 //            lock.unlock()
 //            semaphore.signal()
             return
-//        }
+        }
         
             let num = self.items.removeLast()
             print("Remove \(num)")
@@ -54,11 +54,6 @@ class LockingVC: UIViewController {
 //        lock.unlock()
 //        semaphore.signal()
     }
-}
-    
-   
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
