@@ -22,6 +22,9 @@ class MainVC: UIViewController {
     }
     
     
+    @IBAction func operationQueue(_ sender: UIButton) {
+        MultiThreadingOperationQueue().downloadImageInOperation()
+    }
     
 }
 
