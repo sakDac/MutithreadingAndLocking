@@ -75,7 +75,7 @@
                                     <constraint firstAttribute="width" constant="120" id="rba-PR-a6p"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <state key="normal" title="OperationQueue"/>
+                                <state key="normal" title="Dispatch Queue"/>
                                 <connections>
                                     <segue destination="bnn-Z4-BSH" kind="show" identifier="DispatchQueue" id="B38-hr-qYZ"/>
                                 </connections>

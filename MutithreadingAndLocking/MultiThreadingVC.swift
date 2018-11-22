@@ -23,6 +23,8 @@ class MultiThreadingVC: UIViewController {
     @IBOutlet var buttonCollection: [UIButton]!
     
     @IBAction func Serial_Sync(_ sender: UIButton) {
+        let created = Date()
+        
         self.toggleOnButtonSelection(sender: sender)
         let queue = DispatchQueue(label: "mySerialQueue")
         for i in 1 ... 5 {
@@ -33,23 +35,32 @@ class MultiThreadingVC: UIViewController {
             }
             print("Loop count :: \(i)")
         }
+        
+        defer {
+            print("Time Taken Serial_Sync :: \(Date().timeIntervalSince(created)) second")
+        }
     }
     
     @IBAction func Serial_Async(_ sender: UIButton) {
+        let created = Date()
         self.toggleOnButtonSelection(sender: sender)
         let queue = DispatchQueue(label: "mySerialQueue")
         for i in 1 ... 5 {
-            queue.async { // DispatchQueue.global(qos: .utility).async if you put this line in loop this create seperate threads each time.
+            queue.async { // DispatchQueue.global(qos: .utility).async if you put this line in loop this create seperate queue each time.
                 let url = URL(string: self.url)
                 _ = try? Data(contentsOf: url!)
                 print("image downloaded \(i)")
             }
             print("Loop count :: \(i)")
         }
+        defer {
+            print("Time Taken Serial_Async :: \(Date().timeIntervalSince(created)) second")
+        }
     }
     
     
     @IBAction func concurrent_Sync(_ sender: UIButton) {
+        let created = Date()
         self.toggleOnButtonSelection(sender: sender)
        let concurrentQueue = DispatchQueue(label: "concurrent_Sync_Queue", attributes: .concurrent)
         for i in 1 ... 5 {
@@ -60,10 +71,15 @@ class MultiThreadingVC: UIViewController {
             }
             print("Loop count :: \(i)")
         }
+        
+        defer {
+            print("Time Taken concurrent_Sync :: \(Date().timeIntervalSince(created)) second")
+        }
     }
     
     
     @IBAction func Concurrent_Async(_ sender: UIButton) {
+        let created = Date()
         self.toggleOnButtonSelection(sender: sender)
         let concurrentQueue = DispatchQueue(label: "concurrent_Sync_Queue", qos: .utility, attributes: .concurrent)
         for i in 1 ... 5 {
@@ -74,11 +90,16 @@ class MultiThreadingVC: UIViewController {
             }
             print("Loop count :: \(i)")
         }
+        defer {
+            print("Time Taken Concurrent_Async :: \(Date().timeIntervalSince(created)) second")
+        }
+        
     }
     
     
     /// This method is added to show how you will work with sync without freezing the ui.
     @IBAction func Sync_With_Async(_ sender: UIButton) {
+        let created = Date()
         self.toggleOnButtonSelection(sender: sender)
         let queue = DispatchQueue(label: "concurrent_Sync_Queue")
         queue.async {
@@ -91,6 +112,10 @@ class MultiThreadingVC: UIViewController {
                 }
                 print("Loop count :: \(i)")
             }
+        }
+        
+        defer {
+            print("Time Taken Sync_With_Async :: \(Date().timeIntervalSince(created)) second")
         }
     }
     
